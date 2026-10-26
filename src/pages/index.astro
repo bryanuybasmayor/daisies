@@ -14,6 +14,7 @@ import IconPhone from '../components/IconPhone.astro';
 import SectionIntro from '../components/SectionIntro.astro';
 import VisitStrip from '../components/VisitStrip.astro';
 import { business, services } from '../data/business';
+import { withBase } from '../utils/url';
 import { serviceImages } from '../data/serviceImages';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
@@ -87,7 +88,7 @@ const heroPhotos = [
         {business.hoursSummary}
         <span aria-hidden="true">·</span>
         <a
-          href="/contact#hours"
+          href={withBase('/contact#hours')}
           class="underline decoration-cream/30 underline-offset-4 transition-colors hover:text-cream hover:decoration-yellow"
         >
           Hours and directions
@@ -197,7 +198,7 @@ const heroPhotos = [
             const image = service.image ? serviceImages[service.image] : undefined;
             return (
               <li class="h-full text-center">
-                <a href={`/services#${service.slug}`} class="group flex h-full flex-col items-center">
+                <a href={withBase(`/services#${service.slug}`)} class="group flex h-full flex-col items-center">
                   {image && (
                     <div class="relative mx-auto h-28 w-28 overflow-hidden rounded-full bg-cream-deep sm:h-36 sm:w-36">
                       <Image

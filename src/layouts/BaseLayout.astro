@@ -6,6 +6,7 @@ import '../styles/global.css';
 import BusinessSchema from '../components/BusinessSchema.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import { withBase } from '../utils/url';
 
 interface Props {
   title: string;
@@ -18,6 +19,11 @@ const {
   description,
   ogType = 'website',
 } = Astro.props;
+
+// Directory routes are served with a trailing slash on GitHub Pages, so the
+// canonical URL matches that rather than the extensionless link in the nav.
+const canonicalPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonical = new URL(canonicalPath, Astro.site).href;
 ---
 
 <!doctype html>
@@ -28,13 +34,15 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#11504d" />
+    <link rel="canonical" href={canonical} />
     <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en_CA" />
     <meta property="og:site_name" content="Daisies Dreams and Decor" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta name="twitter:card" content="summary" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <BusinessSchema />
   </head>
   <body class="flex min-h-dvh flex-col">

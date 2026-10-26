@@ -5,6 +5,7 @@ import Eyebrow from './Eyebrow.astro';
 import IconArrow from './IconArrow.astro';
 import IconPhone from './IconPhone.astro';
 import Todo from './Todo.astro';
+import { withBase } from '../utils/url';
 
 // Three quiet lines instead of a seven-row table: the full week lives on the
 // contact page, so the visit panel only has to answer "are they open?".
@@ -134,7 +135,7 @@ const hourGroups = [
           <p class="mt-4 text-[0.8rem] leading-relaxed text-charcoal-soft">
             Public listings differ &mdash; please call before a special trip.
             <a
-              href="/contact#hours"
+              href={withBase('/contact#hours')}
               class="font-semibold text-teal underline decoration-teal/35 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
             >
               Full week

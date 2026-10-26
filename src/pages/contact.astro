@@ -12,6 +12,7 @@ import PageHeader from '../components/PageHeader.astro';
 import SectionIntro from '../components/SectionIntro.astro';
 import Todo from '../components/Todo.astro';
 import { business } from '../data/business';
+import { withBase } from '../utils/url';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
@@ -273,7 +274,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               it in or call to arrange a time to show us.
             </p>
             <a
-              href="/services#gift-ware"
+              href={withBase('/services#gift-ware')}
               class="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.88rem] font-semibold text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
             >
               How we stock gift-ware
@@ -306,7 +307,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </p>
             <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
               <a
-                href="/services#wedding"
+                href={withBase('/services#wedding')}
                 class="inline-flex min-h-11 items-center gap-2 text-[0.88rem] font-semibold text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
               >
                 How wedding flowers work

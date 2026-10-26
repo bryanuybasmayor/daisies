@@ -4,6 +4,7 @@ import IconPhone from './IconPhone.astro';
 import SocialLinks from './SocialLinks.astro';
 import Sprig from './Sprig.astro';
 import Wordmark from './Wordmark.astro';
+import { withBase } from '../utils/url';
 
 const year = new Date().getFullYear();
 const careLinks = [
@@ -18,7 +19,7 @@ const careLinks = [
   <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8 lg:py-20">
     <div class="flex flex-col items-center text-center">
       <a
-        href="/"
+        href={withBase('/')}
         class="inline-flex min-h-11 items-center rounded-full px-2 focus-visible:outline-cream"
         aria-label="Daisies Dreams and Decor — home"
       >
@@ -66,7 +67,7 @@ const careLinks = [
           <li>Sunday · Closed</li>
         </ul>
         <a
-          href="/contact#hours"
+          href={withBase('/contact#hours')}
           class="mt-3 inline-flex min-h-11 items-center text-[0.82rem] text-cream/70 underline decoration-cream/25 underline-offset-4 transition-colors hover:text-cream hover:decoration-yellow"
         >
           Hours and directions
@@ -83,7 +84,7 @@ const careLinks = [
               careLinks.map((link) => (
                 <li>
                   <a
-                    href={link.href}
+                    href={withBase(link.href)}
                     class="inline-flex min-h-11 items-center underline decoration-cream/25 underline-offset-4 transition-colors hover:text-white hover:decoration-yellow"
                   >
                     {link.label}

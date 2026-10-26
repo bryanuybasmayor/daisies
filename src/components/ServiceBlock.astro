@@ -5,6 +5,7 @@ import { serviceImages } from '../data/serviceImages';
 import Button from './Button.astro';
 import IconArrow from './IconArrow.astro';
 import IconPhone from './IconPhone.astro';
+import { withBase } from '../utils/url';
 
 interface Props {
   service: Service;
@@ -71,7 +72,7 @@ const image = service.image ? serviceImages[service.image] : undefined;
         )}
         {service.secondaryCta && (
           <a
-            href={service.secondaryCta.href}
+            href={withBase(service.secondaryCta.href)}
             class="inline-flex min-h-11 items-center gap-2 text-[0.88rem] font-semibold text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
           >
             {service.secondaryCta.label}

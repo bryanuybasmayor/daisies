@@ -96,6 +96,23 @@ The Gallery is demo-only. It is built for a one-folder swap:
 The hard limit of 6–9 Gallery photos, grouped by category, is currently met with 9 photos across
 five categories.
 
+## Deploying to GitHub Pages
+
+The site is set up as a **project site** and deploys automatically on every push to `master`:
+
+- Live URL: `https://bryanuybasmayor.github.io/daisies/`
+- `astro.config.mjs` sets `site` and `base: '/daisies'`.
+- `.github/workflows/deploy.yml` builds with `withastro/action` and publishes with
+  `actions/deploy-pages`.
+
+One-time setup: in the repository, open **Settings → Pages** and set **Source** to
+**GitHub Actions**, then push (or run the workflow by hand from the Actions tab).
+
+Every internal link goes through `withBase()` in `src/utils/url.ts`, so paths are prefixed with the
+base automatically. If the site later moves to a custom domain (or to a `<user>.github.io`
+repository), set `BASE_PATH=/` and `SITE_URL=https://that-domain` in the build environment — no
+source changes needed. The canonical and `og:url` tags follow `site` from the same config.
+
 ## Accessibility and performance notes
 
 - Semantic landmarks, one `h1` per page, correct heading order, real `<label>`s and `<button>`s.
@@ -147,8 +164,9 @@ can be handled in one pass:
       horizontal lockup on transparency) and is rendered by `src/components/Wordmark.astro` in the
       header and footer, capped at 320 px wide. The unused stacked variants
       (`logo.webp` / `logo.jpeg`) can be deleted if the owner does not want them kept.
-- [ ] **Domain** — no production domain is assumed. Add it to `site` in `astro.config.mjs` to enable
-      canonical URLs (and a sitemap, if wanted).
+- [ ] **Domain** — the site currently deploys to `https://bryanuybasmayor.github.io/daisies/`. If
+      the owner wants `daisiesdreamsdecor.com` (or similar), add a `CNAME` in `public/`, point the
+      domain at GitHub Pages, and set `BASE_PATH=/` with `SITE_URL` set to that domain.
 - [ ] **Map** — the Contact page uses a labelled placeholder and a Google Maps search link, because
       no API key was invented. Add an embed only with a real key and the owner's consent.
 - [ ] **Reviews / ratings / years in business** — none are claimed on the site.

@@ -12,6 +12,7 @@ import ServiceBlock from '../components/ServiceBlock.astro';
 import Todo from '../components/Todo.astro';
 import VisitStrip from '../components/VisitStrip.astro';
 import { business, services } from '../data/business';
+import { withBase } from '../utils/url';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
@@ -103,7 +104,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               time to look at your work properly.
             </p>
             <a
-              href="/services#gift-ware"
+              href={withBase('/services#gift-ware')}
               class="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.88rem] font-semibold text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
             >
               See what we carry in gift-ware
@@ -133,7 +134,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               and we will find a time.
             </p>
             <a
-              href="/services#wedding"
+              href={withBase('/services#wedding')}
               class="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.88rem] font-semibold text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
             >
               Read about wedding flowers
