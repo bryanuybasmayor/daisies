@@ -1,21 +1,32 @@
 ---
-import DaisyMark from './DaisyMark.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/images/daisieslogo.png';
 
 interface Props {
+  /** Header sits in the top bar; footer is the larger centred lockup. */
+  size?: 'header' | 'footer';
   class?: string;
 }
 
-const { class: className = '' } = Astro.props;
+const { size = 'header', class: className = '' } = Astro.props;
+
+// The logo is a wide single-line lockup (576 × 38), so it is sized by width to
+// keep the type in proportion instead of letting a fixed height blow it up.
+const widths =
+  size === 'footer'
+    ? 'w-[260px] sm:w-[320px]'
+    : 'w-[min(320px,calc(100vw-190px))] sm:w-[320px]';
 ---
 
-<span class:list={['flex items-center gap-2.5', className]}>
-  <DaisyMark class="h-8 w-8 shrink-0 sm:h-9 sm:w-9" />
-  <span class="flex flex-col">
-    <span class="font-serif text-[1.7rem] leading-[0.85] font-semibold tracking-[0.005em] sm:text-[1.95rem]">
-      Daisies
-    </span>
-    <span class="mt-1 text-[0.5rem] font-medium leading-none tracking-[0.3em] uppercase opacity-80 sm:text-[0.55rem]">
-      Dreams and Decor
-    </span>
-  </span>
+<span class:list={['inline-flex items-center', className]}>
+  <Image
+    src={logo}
+    alt=""
+    widths={[260, 320, 400, 576]}
+    sizes={size === 'footer' ? '(min-width: 640px) 320px, 260px' : '(min-width: 640px) 320px, calc(100vw - 190px)'}
+    class:list={['h-auto', widths]}
+    format="webp"
+    loading={size === 'header' ? 'eager' : 'lazy'}
+    decoding="async"
+  />
 </span>

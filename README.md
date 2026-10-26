@@ -37,9 +37,9 @@ typefaces (`--font-serif` = Cormorant Garamond, `--font-sans` = Karla). Both fon
 site makes no third-party requests.
 
 The palette is green and yellow only — no pinks or purples, in tokens or in components. The visual
-language is a soft, centred boutique one: a solid teal shop-sign header with the social icons in
-the top bar, of which only the navigation row is sticky; a full-bleed teal hero whose photo band is
-contained and sits flush with the section's base; centred serif section headings in brand green
+language is a soft, centred boutique one: a solid teal shop-sign header carrying the owner's white
+logo lockup with the social icons at its left, of which only the navigation row is sticky; a
+full-bleed teal hero whose photo band is contained and sits flush with the section's base; centred serif section headings in brand green
 (`--color-teal`) over short olive rules; circular service photos; sage paper bands; a mint green
 band for the services; an inner-page masthead with a photograph under a teal wash; and a white
 paper card for the visit details. Headings are green (white or yellow when they sit on a teal
@@ -61,8 +61,8 @@ that, a centred intro, and one clear action when adding sections.
 
 Shared pieces: `src/layouts/BaseLayout.astro` (head, SEO, schema, skip link), `src/components/`
 (`Header`, `Footer`, `PageHeader`, `SectionIntro`, `ServiceBlock`, `GalleryGrid`, `GalleryPreview`,
-`ContactForm`, `VisitStrip`, `SocialLinks`, `Button`, `Eyebrow`, `Todo`, `Wordmark`, `DaisyMark`,
-`Sprig`, icons).
+`ContactForm`, `VisitStrip`, `SocialLinks`, `Button`, `Eyebrow`, `Todo`, `Wordmark`, `Sprig`,
+icons).
 
 ## Edit business facts in one place
 
@@ -143,9 +143,10 @@ can be handled in one pass:
 - [ ] **Shipping, returns, refunds, privacy** — no policies have been invented. If policy pages are
       wanted, they need owner-written content (and a policy page placeholder should then be created).
 - [ ] **Demo gallery swap** — replace the 9 demo Pexels photos with real store/work photos.
-- [ ] **Logo file** — the site uses a serif text wordmark with a small daisy motif drawn in SVG
-      because no logo file was supplied. If the owner supplies their logo, drop it in
-      `public/` and swap `src/components/Wordmark.astro`.
+- [x] **Logo file** — the owner's logo is in place (`src/assets/images/daisieslogo.png`, a white
+      horizontal lockup on transparency) and is rendered by `src/components/Wordmark.astro` in the
+      header and footer, capped at 320 px wide. The unused stacked variants
+      (`logo.webp` / `logo.jpeg`) can be deleted if the owner does not want them kept.
 - [ ] **Domain** — no production domain is assumed. Add it to `site` in `astro.config.mjs` to enable
       canonical URLs (and a sitemap, if wanted).
 - [ ] **Map** — the Contact page uses a labelled placeholder and a Google Maps search link, because
