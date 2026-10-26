@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+import ctaFlowers from '../assets/images/fresh-floral-red-bouquet.jpg';
+import headerFlowers from '../assets/images/fresh-floral-mixed-bouquet.jpg';
+import Button from '../components/Button.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import IconArrow from '../components/IconArrow.astro';
+import IconPhone from '../components/IconPhone.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { business } from '../data/business';
+import { galleryCategories } from '../data/gallery';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Gallery — Daisies Dreams and Decor, Melfort, SK"
+  description="A look at the floral and decor styles we work in — fresh arrangements, permanent botanicals, wedding and bereavement flowers, and home decor in Melfort, SK."
+>
+  <PageHeader
+    eyebrow="Gallery"
+    title="Fresh flowers, wedding work, and the shelves at home."
+    intro="A look at the styles we work in, grouped the way we think about them. The photos here are illustrative while the store's own gallery is being put together — if you have seen something you like in store, tell us and we will work from it."
+    image={headerFlowers}
+  />
+
+  <section aria-label="Photos by category" class="bg-cream">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+      <GalleryGrid categories={galleryCategories} />
+    </div>
+  </section>
+
+  <section aria-labelledby="gallery-cta-heading" class="bg-cream px-3 pb-16 sm:px-5 sm:pb-20 lg:pb-24">
+    <div
+      class="relative isolate mx-auto max-w-6xl overflow-hidden rounded-panel bg-teal-deep px-6 py-12 text-center sm:px-12 lg:py-16"
+    >
+      <Image
+        src={ctaFlowers}
+        alt=""
+        aria-hidden="true"
+        widths={[800, 1200, 1600]}
+        sizes="(min-width: 1152px) 1104px, 94vw"
+        class="absolute inset-0 -z-10 h-full w-full object-cover opacity-30"
+        format="webp"
+        loading="lazy"
+      />
+      <div
+        class="absolute inset-0 -z-10 bg-gradient-to-b from-teal-deep/85 via-teal-deep/78 to-teal-deep/92"
+        aria-hidden="true"
+      >
+      </div>
+      <Eyebrow label="Something like this?" tone="cream" />
+      <h2
+        id="gallery-cta-heading"
+        class="mx-auto mt-5 max-w-2xl font-serif text-display leading-[1.05] text-white"
+      >
+        We can design to a colour, a room, an occasion, or a budget.
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-[1rem] leading-relaxed text-cream/80">
+        Bring us a photo, a paint chip, a piece of fabric, or just a feeling you are trying to
+        match. Most of what we make starts with a conversation, and there is no obligation in having
+        one.
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href={business.phone.href} variant="light">
+          <IconPhone class="h-4 w-4" />
+          Call {business.phone.display}
+        </Button>
+        <Button href="/services" variant="lightOutline">
+          Our Services
+          <IconArrow class="h-4 w-4" />
+        </Button>
+      </div>
+
+      <p class="mt-7 text-[0.82rem] leading-relaxed text-cream/65">
+        Prefer to see the work in person? Our hours are {business.hoursSummary}.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

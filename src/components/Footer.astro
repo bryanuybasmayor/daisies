@@ -1,0 +1,103 @@
+---
+import { business } from '../data/business';
+import IconPhone from './IconPhone.astro';
+import SocialLinks from './SocialLinks.astro';
+import Sprig from './Sprig.astro';
+import Wordmark from './Wordmark.astro';
+
+const year = new Date().getFullYear();
+const careLinks = [
+  { label: 'Contact us', href: '/contact' },
+  { label: 'Hours and directions', href: '/contact#hours' },
+  { label: 'Artisan enquiries', href: '/services#gift-ware' },
+  { label: 'Wedding consultations', href: '/services#wedding' },
+];
+---
+
+<footer class="bg-teal-deep text-cream">
+  <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8 lg:py-20">
+    <div class="flex flex-col items-center text-center">
+      <a
+        href="/"
+        class="inline-flex min-h-11 items-center rounded-full px-2 focus-visible:outline-cream"
+        aria-label="Daisies Dreams and Decor — home"
+      >
+        <Wordmark />
+      </a>
+      <p class="mt-5 max-w-sm font-serif text-[1.35rem] leading-snug text-cream/85 italic">
+        Flowers, one-of-a-kind finds, and a chair by the window.
+      </p>
+      <SocialLinks class="mt-6" />
+      <Sprig class="mt-6 h-6 w-6 text-yellow/70" />
+    </div>
+
+    <div
+      class="mt-10 grid gap-10 border-t border-cream/15 pt-9 text-center sm:grid-cols-2 lg:grid-cols-3 lg:gap-12 lg:text-left"
+    >
+      <div>
+        <h2 class="text-[0.7rem] font-semibold tracking-[0.24em] text-yellow uppercase">Visit</h2>
+        <address class="mt-4 text-[0.95rem] leading-relaxed text-cream/85 not-italic">
+          <a
+            href={business.mapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="underline decoration-cream/25 underline-offset-4 transition-colors hover:text-white hover:decoration-yellow"
+          >
+            {business.address.street}<br />
+            {business.address.city}, {business.address.region} {business.address.postal}
+          </a>
+          <p class="mt-4">
+            <a
+              href={business.phone.href}
+              class="mx-auto flex w-fit min-h-11 items-center gap-2 font-semibold text-cream transition-colors hover:text-white lg:mx-0"
+            >
+              <IconPhone class="h-4 w-4" />
+              {business.phone.display}
+            </a>
+          </p>
+        </address>
+      </div>
+
+      <div>
+        <h2 class="text-[0.7rem] font-semibold tracking-[0.24em] text-yellow uppercase">Hours</h2>
+        <ul class="mt-4 space-y-1.5 text-[0.95rem] leading-relaxed text-cream/85">
+          <li>Mon–Fri · 9:00 a.m. – 5:30 p.m.</li>
+          <li>Saturday · 9:00 a.m. – 5:00 p.m.</li>
+          <li>Sunday · Closed</li>
+        </ul>
+        <a
+          href="/contact#hours"
+          class="mt-3 inline-flex min-h-11 items-center text-[0.82rem] text-cream/70 underline decoration-cream/25 underline-offset-4 transition-colors hover:text-cream hover:decoration-yellow"
+        >
+          Hours and directions
+        </a>
+      </div>
+
+      <div class="sm:col-span-2 lg:col-span-1">
+        <h2 class="text-[0.7rem] font-semibold tracking-[0.24em] text-yellow uppercase">
+          Store information
+        </h2>
+        <nav aria-label="Customer support links" class="mt-4">
+          <ul class="space-y-1 text-[0.95rem] leading-relaxed text-cream/85">
+            {
+              careLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="inline-flex min-h-11 items-center underline decoration-cream/25 underline-offset-4 transition-colors hover:text-white hover:decoration-yellow"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <p class="mt-10 border-t border-cream/15 pt-6 text-center text-[0.78rem] text-cream/70">
+      © {year} {business.name} · Melfort, Saskatchewan
+    </p>
+  </div>
+</footer>

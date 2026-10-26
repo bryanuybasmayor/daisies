@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  /** Optional photograph behind the masthead; it sits under a deep-teal wash. */
+  image?: ImageMetadata;
+}
+
+const { eyebrow, title, intro, image } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden border-t border-cream/10 bg-teal text-cream">
+  {
+    image && (
+      <>
+        <Image
+          src={image}
+          alt=""
+          aria-hidden="true"
+          widths={[900, 1400, 1900]}
+          sizes="100vw"
+          class="absolute inset-0 -z-10 h-full w-full object-cover opacity-20"
+          format="webp"
+          loading="eager"
+        />
+        <div
+          class="absolute inset-0 -z-10 bg-gradient-to-b from-teal-deep/82 via-teal/78 to-teal-deep/92"
+          aria-hidden="true"
+        />
+      </>
+    )
+  }
+
+  <div class="relative mx-auto max-w-3xl px-5 pt-12 pb-12 text-center sm:px-8 lg:pt-16 lg:pb-16">
+    {eyebrow && <Eyebrow label={eyebrow} tone="cream" />}
+    <h1 class="mt-6 font-serif text-[clamp(2.2rem,5.4vw,3.6rem)] leading-[1.02] text-white">
+      {title}
+    </h1>
+    {
+      intro && (
+        <p class="mx-auto mt-6 max-w-xl text-[1.02rem] leading-relaxed text-cream/80">{intro}</p>
+      )
+    }
+    <slot />
+  </div>
+</section>

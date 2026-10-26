@@ -1,0 +1,148 @@
+---
+import { business } from '../data/business';
+import IconArrow from './IconArrow.astro';
+import IconPhone from './IconPhone.astro';
+
+const fieldClasses =
+  'mt-2 w-full min-h-11 rounded-[0.9rem] border border-charcoal/15 bg-cream px-4 py-3 text-[1rem] text-charcoal transition-colors placeholder:text-charcoal-soft/85 focus:border-teal focus:bg-white focus:outline-2 focus:outline-offset-1 focus:outline-teal';
+const labelClasses = 'block text-[0.7rem] font-semibold tracking-[0.18em] text-gold uppercase';
+const hintClasses = 'mt-1.5 block text-[0.8rem] leading-relaxed text-charcoal-soft';
+
+const occasions = [
+  'Just because',
+  'Birthday',
+  'Anniversary',
+  'Thinking of you',
+  'New baby',
+  'Retirement',
+  'Sympathy or bereavement',
+  'Wedding',
+  'Home decor or gift-ware',
+  'Something else',
+];
+---
+
+<form
+  id="enquiry-form"
+  class="mt-8 grid gap-6 sm:grid-cols-2"
+  aria-describedby="form-note"
+  data-form-endpoint=""
+>
+  <div>
+    <label for="name" class={labelClasses}>Your name</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      autocomplete="name"
+      required
+      placeholder="First and last name"
+      class={fieldClasses}
+    />
+  </div>
+
+  <div>
+    <label for="reach" class={labelClasses}>Phone or email</label>
+    <input
+      id="reach"
+      name="reach"
+      type="text"
+      autocomplete="tel"
+      required
+      placeholder="Phone number or email"
+      class={fieldClasses}
+    />
+    <span class={hintClasses}>Whichever you would rather we call or write back on.</span>
+  </div>
+
+  <div>
+    <label for="occasion" class={labelClasses}>Occasion</label>
+    <select id="occasion" name="occasion" required class={fieldClasses}>
+      <option value="" selected disabled>Choose an occasion</option>
+      {occasions.map((occasion) => <option value={occasion}>{occasion}</option>)}
+    </select>
+  </div>
+
+  <div>
+    <label for="visitDate" class={labelClasses}>Preferred pickup or visit date</label>
+    <input id="visitDate" name="visitDate" type="date" class={fieldClasses} />
+    <span class={hintClasses}>Optional — helpful for weddings and sympathy orders.</span>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label for="message" class={labelClasses}>What can we make for you?</label>
+    <textarea
+      id="message"
+      name="message"
+      rows="5"
+      required
+      placeholder="The occasion, colours you love, a budget range, or anything we should know."
+      class={fieldClasses}></textarea>
+  </div>
+
+  <div class="sm:col-span-2">
+    <button
+      type="submit"
+      class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-teal px-7 py-3 font-semibold text-cream transition-colors hover:bg-teal-mid"
+    >
+      Send enquiry
+      <IconArrow class="h-4 w-4" />
+    </button>
+    <p id="form-note" class="mt-4 max-w-xl text-[0.8rem] leading-relaxed text-charcoal-soft">
+      This form is a placeholder while the store&rsquo;s inbox connection is set up, so nothing is
+      emailed yet. For anything urgent, or to book a wedding consultation, please call
+      <a
+        href={business.phone.href}
+        class="inline-flex items-center gap-1 font-semibold text-teal underline decoration-teal/40 underline-offset-4 hover:decoration-teal"
+      >
+        <IconPhone class="h-3.5 w-3.5" />
+        {business.phone.display}
+      </a>.
+    </p>
+    <noscript>
+      <p
+        class="mt-3 max-w-xl rounded-soft border border-teal/25 bg-yellow-tint px-4 py-3 text-[0.85rem] leading-relaxed text-charcoal"
+      >
+        JavaScript is turned off in your browser, so this form cannot show a confirmation.
+        Please call {business.phone.display} or visit us at {business.address.street} in Melfort.
+      </p>
+    </noscript>
+  </div>
+</form>
+
+<div
+  id="form-status"
+  class="mt-8 hidden rounded-panel border border-teal/20 bg-teal-tint px-6 py-8 text-center sm:px-10"
+  role="status"
+  aria-live="polite"
+  tabindex="-1"
+>
+  <h3 class="font-serif text-[1.7rem] leading-tight text-teal">Thanks — we will get back to you.</h3>
+  <p class="mx-auto mt-3 max-w-md text-[0.95rem] leading-relaxed text-charcoal-soft">
+    Because the form is not connected to the store&rsquo;s inbox yet, your message has not been
+    sent. Please call us to confirm it, especially for weddings and sympathy orders.
+  </p>
+  <a
+    href={business.phone.href}
+    class="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-teal px-6 py-3 font-semibold text-cream transition-colors hover:bg-teal-mid"
+  >
+    <IconPhone class="h-4 w-4" />
+    Call {business.phone.display}
+  </a>
+</div>
+
+<script>
+  const form = document.getElementById('enquiry-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    form.hidden = true;
+    status?.classList.remove('hidden');
+    status?.focus();
+    status?.scrollIntoView({ block: 'center' });
+  });
+</script>

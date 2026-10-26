@@ -1,0 +1,182 @@
+---
+import { business, navigation } from '../data/business';
+import IconPhone from './IconPhone.astro';
+import SocialLinks from './SocialLinks.astro';
+import Wordmark from './Wordmark.astro';
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isCurrent = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath === href.replace(/\/+$/, '');
+---
+
+<header class="sticky top-0 z-50 bg-teal text-cream lg:static">
+  <div
+    class="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-3 sm:px-8 lg:py-5"
+  >
+    <div class="flex items-center justify-start">
+      <button
+        type="button"
+        id="menu-toggle"
+        class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-cream/35 text-cream transition-colors hover:border-cream hover:bg-cream/10 focus-visible:outline-cream lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open menu"
+      >
+        <svg
+          id="menu-icon-open"
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M4 8h16M4 16h16"></path>
+        </svg>
+        <svg
+          id="menu-icon-close"
+          class="hidden h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="m6 6 12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+
+      <SocialLinks variant="header" class="-ml-2 hidden lg:flex" />
+    </div>
+
+    <a
+      href="/"
+      class="inline-flex min-h-11 shrink-0 items-center justify-self-center rounded-full px-2 focus-visible:outline-cream"
+      aria-label="Daisies Dreams and Decor — home"
+    >
+      <Wordmark />
+    </a>
+
+    <div class="flex items-center justify-end">
+      <a
+        href={business.phone.href}
+        class="hidden min-h-11 items-center gap-2 rounded-full bg-cream px-5 text-[0.85rem] font-semibold text-teal transition-colors hover:bg-yellow hover:text-teal-deep sm:inline-flex"
+      >
+        <IconPhone class="h-4 w-4" />
+        <span>{business.phone.display}</span>
+      </a>
+      <a
+        href={business.phone.href}
+        class="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-full bg-cream px-3 text-[0.85rem] font-semibold text-teal sm:hidden"
+        aria-label={`Call the store at ${business.phone.display}`}
+      >
+        <IconPhone class="h-4 w-4" />
+        <span>Call</span>
+      </a>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="hidden border-t border-cream/15 lg:hidden">
+    <nav aria-label="Main menu" class="mx-auto max-w-6xl px-5 pt-2 pb-6 sm:px-8">
+      <ul class="divide-y divide-cream/10">
+        {
+          navigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+                class:list={[
+                  'flex min-h-12 items-center justify-between py-1 text-[0.78rem] font-medium tracking-[0.18em] uppercase transition-colors focus-visible:outline-cream',
+                  isCurrent(item.href) ? 'text-white' : 'text-cream/80 hover:text-white',
+                ]}
+              >
+                {item.label}
+                <span aria-hidden="true" class="text-yellow/90">
+                  {isCurrent(item.href) ? '·' : ''}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-5 text-sm leading-relaxed text-cream/70">
+        {business.address.street}, {business.address.city}<br />
+        {business.hoursSummary}
+      </p>
+    </nav>
+  </div>
+</header>
+
+<div class="sticky top-0 z-40 hidden border-t border-cream/15 bg-teal lg:block">
+  <nav aria-label="Main" class="mx-auto max-w-6xl px-8">
+    <ul class="flex items-center justify-center gap-8">
+      {
+        navigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+              class:list={[
+                'inline-flex min-h-11 items-center border-b px-1 text-[0.75rem] font-medium tracking-[0.2em] uppercase transition-colors focus-visible:outline-cream',
+                isCurrent(item.href)
+                  ? 'border-yellow text-white'
+                  : 'border-transparent text-cream/75 hover:border-cream/30 hover:text-white',
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+<noscript>
+  <style>
+    /* Without JavaScript the menu button cannot work, so keep the links visible. */
+    #mobile-nav {
+      display: block !important;
+    }
+
+    #menu-toggle {
+      display: none !important;
+    }
+  </style>
+</noscript>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const panel = document.getElementById('mobile-nav');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  if (toggle && panel) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      panel.classList.toggle('hidden', !open);
+      iconOpen?.classList.toggle('hidden', open);
+      iconClose?.classList.toggle('hidden', !open);
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    panel.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>

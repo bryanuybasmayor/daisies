@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import type { GalleryCategory } from '../data/gallery';
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  categories: GalleryCategory[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div class="space-y-16 sm:space-y-24">
+  {
+    categories.map((category) => (
+      <section aria-labelledby={`gallery-${category.slug}`}>
+        <div class="mx-auto max-w-2xl text-center">
+          <Eyebrow label={`${category.images.length} ${category.images.length === 1 ? 'photo' : 'photos'}`} />
+          <h2
+            id={`gallery-${category.slug}`}
+            class="mt-4 scroll-mt-6 font-serif text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.05] text-teal"
+          >
+            {category.name}
+          </h2>
+          {category.note && (
+            <p class="mx-auto mt-4 max-w-xl text-[0.95rem] leading-relaxed text-charcoal-soft">
+              {category.note}
+            </p>
+          )}
+        </div>
+
+        <ul class="mt-9 flex flex-wrap justify-center gap-5 lg:gap-6">
+          {category.images.map((image) => (
+            <li class="w-full max-w-[24rem] sm:w-[calc(50%-0.75rem)] sm:max-w-[26rem]">
+              <figure class="rounded-soft border border-charcoal/10 bg-white p-2.5 shadow-[0_24px_50px_-46px_rgba(43,38,34,0.7)]">
+                <div class="overflow-hidden rounded-[0.9rem] bg-cream-deep">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    widths={[380, 560, 760]}
+                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 90vw"
+                    class="aspect-[4/5] w-full object-cover"
+                    loading="lazy"
+                    format="webp"
+                  />
+                </div>
+                <figcaption class="px-1.5 pt-3 pb-1.5 text-center text-[0.86rem] leading-snug font-medium text-charcoal">
+                  {image.caption}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>

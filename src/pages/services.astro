@@ -1,0 +1,149 @@
+---
+import { Image } from 'astro:assets';
+import daisyPillows from '../assets/images/home-decor-daisy-pillows.jpg';
+import receptionTable from '../assets/images/wedding-reception-table.jpg';
+import silkDried from '../assets/images/silk-botanical-dried-arrangement.jpg';
+import Button from '../components/Button.astro';
+import IconArrow from '../components/IconArrow.astro';
+import IconPhone from '../components/IconPhone.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionIntro from '../components/SectionIntro.astro';
+import ServiceBlock from '../components/ServiceBlock.astro';
+import Todo from '../components/Todo.astro';
+import VisitStrip from '../components/VisitStrip.astro';
+import { business, services } from '../data/business';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Our Services — Daisies Dreams and Decor, Melfort, SK"
+  description="Fresh floral arrangements, permanent botanicals, home decor, gift-ware, bereavement and wedding flowers from our shop on Main Street in Melfort, SK."
+>
+  <PageHeader
+    eyebrow="What we do"
+    title="Flowers, decor and gifts, made for the moment you are in."
+    intro="Six things we do from the store on Main Street in Melfort: fresh arrangements, permanent botanicals, home decor, gift-ware, bereavement work and wedding flowers. Read through, then call or come in and we will talk it over."
+    image={silkDried}
+  />
+
+  <section aria-label="Our services in detail" class="bg-cream">
+    <div class="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+      {services.map((service, index) => <ServiceBlock service={service} index={index + 1} />)}
+    </div>
+  </section>
+
+  <section aria-labelledby="help-heading" class="bg-white">
+    <div class="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8 sm:py-20 lg:py-24">
+      <SectionIntro
+        eyebrow="Not sure where to start"
+        title="Tell us the person, and we will take it from there."
+        id="help-heading"
+      />
+
+      <div class="mx-auto mt-8 max-w-xl space-y-4 text-[1.02rem] leading-relaxed text-charcoal-soft">
+        <p>
+          You do not need to know the name of a flower or the size of an arrangement. Tell us who it
+          is for, what the occasion is, and what you would like to spend, and we will make something
+          that fits. If you are choosing for someone else, we can describe the options over the
+          phone.
+        </p>
+        <p>
+          Pricing depends on the flowers and the size of the piece, so we quote each arrangement
+          when you call rather than listing prices here. Ask about pickup, and about timing for
+          sympathy work.
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href={business.phone.href}>
+          <IconPhone class="h-4 w-4" />
+          Call {business.phone.display}
+        </Button>
+        <Button href="/contact" variant="outline">
+          Send an enquiry
+          <IconArrow class="h-4 w-4" />
+        </Button>
+      </div>
+
+      <div class="mt-6 flex justify-center">
+        <Todo note="pricing, delivery areas and same-day cut-offs" />
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="makers-heading" class="bg-cream-deep">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+      <SectionIntro
+        eyebrow="Two doors in"
+        title="Local makers and wedding flowers."
+        id="makers-heading"
+      />
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:gap-8">
+        <div
+          class="overflow-hidden rounded-panel bg-cream text-center shadow-[0_26px_55px_-50px_rgba(43,38,34,0.7)]"
+        >
+          <Image
+            src={daisyPillows}
+            alt="A cushion embroidered with daisies beside a vintage radio and a small vase of flowers"
+            widths={[420, 720, 1000]}
+            sizes="(min-width: 1024px) 560px, (min-width: 640px) 46vw, 92vw"
+            class="aspect-[16/10] w-full object-cover"
+            format="webp"
+            loading="lazy"
+          />
+          <div class="px-6 py-8 sm:px-8">
+            <h3 class="font-serif text-[1.55rem] leading-snug text-teal">
+              Bring us what you make
+            </h3>
+            <p class="mx-auto mt-3 max-w-sm text-[0.96rem] leading-relaxed text-charcoal-soft">
+              If you make something by hand &mdash; textiles, woodwork, candles, preserves, cards
+              &mdash; we would like to see it. Local artisans and craftsmen are part of the gift-ware
+              in the store, and we are always glad to add more. Call ahead and we will set aside a
+              time to look at your work properly.
+            </p>
+            <a
+              href="/services#gift-ware"
+              class="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.88rem] font-semibold text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
+            >
+              See what we carry in gift-ware
+              <IconArrow class="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="overflow-hidden rounded-panel bg-cream text-center shadow-[0_26px_55px_-50px_rgba(43,38,34,0.7)]"
+        >
+          <Image
+            src={receptionTable}
+            alt="A wedding reception table set with white and green flowers, glassware and candles"
+            widths={[420, 720, 1000]}
+            sizes="(min-width: 1024px) 560px, (min-width: 640px) 46vw, 92vw"
+            class="aspect-[16/10] w-full object-cover"
+            format="webp"
+            loading="lazy"
+          />
+          <div class="px-6 py-8 sm:px-8">
+            <h3 class="font-serif text-[1.55rem] leading-snug text-teal">Planning a wedding?</h3>
+            <p class="mx-auto mt-3 max-w-sm text-[0.96rem] leading-relaxed text-charcoal-soft">
+              Start with a conversation, not a package. We will ask how you met, what the day looks
+              like, and the colours you keep coming back to, then build the bouquets, boutonnieres,
+              corsages and centrepieces around that. Consultations are free &mdash; call the store
+              and we will find a time.
+            </p>
+            <a
+              href="/services#wedding"
+              class="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.88rem] font-semibold text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
+            >
+              Read about wedding flowers
+              <IconArrow class="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <VisitStrip />
+</BaseLayout>

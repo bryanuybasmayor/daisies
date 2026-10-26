@@ -1,0 +1,21 @@
+---
+import DaisyMark from './DaisyMark.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<span class:list={['flex items-center gap-2.5', className]}>
+  <DaisyMark class="h-8 w-8 shrink-0 sm:h-9 sm:w-9" />
+  <span class="flex flex-col">
+    <span class="font-serif text-[1.7rem] leading-[0.85] font-semibold tracking-[0.005em] sm:text-[1.95rem]">
+      Daisies
+    </span>
+    <span class="mt-1 text-[0.5rem] font-medium leading-none tracking-[0.3em] uppercase opacity-80 sm:text-[0.55rem]">
+      Dreams and Decor
+    </span>
+  </span>
+</span>

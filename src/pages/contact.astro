@@ -1,0 +1,325 @@
+---
+import { Image } from 'astro:assets';
+import daisyPillows from '../assets/images/home-decor-daisy-pillows.jpg';
+import heroShop from '../assets/images/hero-flower-shop.jpg';
+import receptionTable from '../assets/images/wedding-reception-table.jpg';
+import Button from '../components/Button.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import IconArrow from '../components/IconArrow.astro';
+import IconPhone from '../components/IconPhone.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionIntro from '../components/SectionIntro.astro';
+import Todo from '../components/Todo.astro';
+import { business } from '../data/business';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact Us — Daisies Dreams and Decor, Melfort, SK"
+  description="Call or visit Daisies Dreams and Decor at 506 Main St, Melfort, SK. Store hours, directions, phone number and an enquiry form for flowers, decor and gifts."
+>
+  <PageHeader
+    eyebrow="Contact us"
+    title="The easiest way to reach us is to call."
+    intro="Flowers are a conversation — the occasion, the colours, who it is for. Pick up the phone and we will sort out the rest. If you would rather write it down, there is an enquiry form below."
+    image={daisyPillows}
+  >
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <Button href={business.phone.href} variant="light">
+        <IconPhone class="h-4 w-4" />
+        Call {business.phone.display}
+      </Button>
+      <Button href="/contact#hours" variant="lightOutline">
+        Check our hours
+        <IconArrow class="h-4 w-4" />
+      </Button>
+    </div>
+  </PageHeader>
+
+  <section aria-labelledby="enquiry-heading" class="bg-cream">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+      <div class="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-10">
+        <div
+          class="rounded-panel bg-white px-5 py-9 shadow-[0_30px_60px_-55px_rgba(43,38,34,0.7)] sm:px-8 lg:px-10"
+        >
+          <h2
+            id="enquiry-heading"
+            class="text-center font-serif text-[clamp(1.9rem,3.6vw,2.5rem)] leading-[1.06] text-teal"
+          >
+            Send us an enquiry
+          </h2>
+          <p class="mx-auto mt-3 max-w-md text-center text-[0.98rem] leading-relaxed text-charcoal-soft">
+            Tell us the occasion, a colour you love, and roughly when you need it. We will read it
+            during store hours and get back to you. For anything urgent, calling is always faster.
+          </p>
+          <ContactForm />
+        </div>
+
+        <aside
+          aria-labelledby="find-us-heading"
+          class="rounded-panel border border-teal/15 bg-cream-deep px-6 py-9 text-center sm:px-8"
+        >
+          <h2 id="find-us-heading" class="font-serif text-[1.8rem] leading-tight text-teal">
+            Find the store
+          </h2>
+
+          <address class="mt-4 text-[0.98rem] leading-relaxed text-charcoal not-italic">
+            {business.name}<br />
+            {business.address.street}<br />
+            {business.address.city}, {business.address.region} {business.address.postal}
+          </address>
+
+          <p class="mt-4">
+            <a
+              href={business.phone.href}
+              class="mx-auto flex w-fit min-h-11 items-center justify-center gap-2 font-serif text-[1.5rem] leading-none text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
+            >
+              <IconPhone class="h-5 w-5" />
+              {business.phone.display}
+            </a>
+          </p>
+
+          <div class="mt-1">
+            <a
+              href={business.mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mx-auto flex w-fit min-h-11 items-center gap-2 text-[0.85rem] font-semibold text-teal underline decoration-teal/35 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
+            >
+              Get directions
+              <IconArrow class="h-4 w-4" />
+            </a>
+          </div>
+
+          <div
+            class="mt-4 flex flex-col items-center justify-center gap-3 rounded-soft border border-dashed border-teal/25 bg-white px-5 py-7"
+          >
+            <svg
+              class="h-6 w-6 text-gold"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M12 21s-6.5-5.6-6.5-10.4a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z" />
+              <circle cx="12" cy="10.4" r="2.4" />
+            </svg>
+            <p class="text-[0.82rem] leading-relaxed text-charcoal-soft">
+              The embedded map is not connected yet. &ldquo;Get directions&rdquo; above opens our
+              spot on Main Street in Google Maps.
+            </p>
+          </div>
+
+          <div class="mt-4 flex flex-wrap justify-center gap-2">
+            <Todo note="phone and address" />
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="hours" aria-labelledby="hours-heading" class="scroll-mt-6 bg-white">
+    <div class="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8 sm:py-20 lg:py-24">
+      <SectionIntro
+        eyebrow="Hours"
+        title="When the door is open."
+        intro="Some public listings show a different set of hours, so please call before making a special trip out to Melfort."
+        id="hours-heading"
+      />
+
+      <ul class="mx-auto mt-9 max-w-md border-t border-charcoal/12 text-left">
+        {
+          business.hours.map((entry) => (
+            <li class="flex items-baseline justify-between gap-6 border-b border-charcoal/12 py-2.5">
+              <span class="text-[0.98rem] text-charcoal">{entry.day}</span>
+              <span
+                class:list={[
+                  'text-right text-[0.98rem]',
+                  entry.closed ? 'text-charcoal-soft' : 'font-medium text-charcoal',
+                ]}
+              >
+                {entry.display}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-5 flex flex-wrap justify-center gap-2">
+        <Todo note="which hours set is current" />
+      </div>
+
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <Button href={business.phone.href}>
+          <IconPhone class="h-4 w-4" />
+          Call {business.phone.display}
+        </Button>
+        <Button href={business.mapUrl} variant="outline" external>
+          Get directions
+          <IconArrow class="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="inside-heading" class="bg-white">
+    <div class="mx-auto max-w-6xl px-5 pb-16 sm:px-8 sm:pb-20 lg:pb-24">
+      <figure
+        class="relative isolate overflow-hidden rounded-panel bg-teal-deep text-cream"
+      >
+        <Image
+          src={heroShop}
+          alt="Wooden shelves inside a florist shop, filled with vases, dried flowers and small gifts"
+          widths={[800, 1200, 1600]}
+          sizes="(min-width: 1152px) 1104px, 94vw"
+          class="absolute inset-0 -z-10 h-full w-full object-cover opacity-45"
+          format="webp"
+          loading="lazy"
+        />
+        <div
+          class="absolute inset-0 -z-10 bg-gradient-to-t from-teal-deep/92 via-teal-deep/65 to-teal-deep/45"
+          aria-hidden="true"
+        >
+        </div>
+
+        <figcaption class="relative px-6 py-14 text-center sm:px-10 sm:py-20">
+          <Eyebrow label="Inside the shop" tone="cream" />
+          <h2
+            id="inside-heading"
+            class="mx-auto mt-4 max-w-lg font-serif text-[clamp(1.9rem,4.4vw,2.8rem)] leading-[1.06] text-white"
+          >
+            Flowers in the cooler, decor on the shelves, coffee on.
+          </h2>
+          <p class="mx-auto mt-4 max-w-md text-[0.92rem] leading-relaxed text-cream/75">
+            Come in on your lunch break, or on a Saturday with a friend, and take your time.
+            Illustrative image &middot; demo stock photo.
+          </p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="reach-us-heading" class="bg-cream-deep">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+      <SectionIntro
+        eyebrow="Other ways to reach us"
+        title="The details we have not published yet."
+        intro="We would rather leave something out than send you somewhere that is not checked."
+        id="reach-us-heading"
+      />
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:gap-10">
+        <div class="rounded-panel bg-cream px-6 py-8 text-center">
+          <h3 class="font-serif text-[1.4rem] leading-snug text-teal">Email and social</h3>
+          <p class="mx-auto mt-3 max-w-sm text-[0.95rem] leading-relaxed text-charcoal-soft">
+            New arrivals and the week&rsquo;s flowers show up on our Facebook and Instagram pages
+            first &mdash; the icons are at the bottom of every page. We have not published an email
+            address here yet, so for anything you need ordered, the phone is still quickest.
+          </p>
+          <div class="mt-4 flex flex-wrap justify-center gap-2">
+            <Todo note="public email address" />
+          </div>
+        </div>
+
+        <div class="rounded-panel bg-cream px-6 py-8 text-center">
+          <h3 class="font-serif text-[1.4rem] leading-snug text-teal">
+            Delivery, pickup and pricing
+          </h3>
+          <p class="mx-auto mt-3 max-w-sm text-[0.95rem] leading-relaxed text-charcoal-soft">
+            Every arrangement is a little different, so we talk it through when you call: what you
+            have in mind, when you need it, and whether you would like to pick it up or have it
+            delivered. We would rather answer that honestly on the phone than publish a number that
+            changes next month.
+          </p>
+          <div class="mt-4 flex flex-wrap justify-center gap-2">
+            <Todo note="delivery and pickup details" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="artisans-heading" class="bg-cream">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+      <div class="grid gap-6 sm:grid-cols-2 lg:gap-8">
+        <div
+          class="overflow-hidden rounded-panel bg-white text-center shadow-[0_26px_55px_-50px_rgba(43,38,34,0.7)]"
+        >
+          <Image
+            src={daisyPillows}
+            alt="A cushion embroidered with daisies beside a vintage radio and a small vase of flowers"
+            widths={[420, 720, 1000]}
+            sizes="(min-width: 1024px) 560px, (min-width: 640px) 46vw, 92vw"
+            class="aspect-[16/10] w-full object-cover"
+            format="webp"
+            loading="lazy"
+          />
+          <div class="px-6 py-8 sm:px-8">
+            <Eyebrow label="Local makers" />
+            <h2
+              id="artisans-heading"
+              class="mt-4 font-serif text-[1.8rem] leading-[1.1] text-teal sm:text-[2.1rem]"
+            >
+              Bring us your work
+            </h2>
+            <p class="mx-auto mt-4 max-w-sm text-[0.98rem] leading-relaxed text-charcoal-soft">
+              We carry pieces from local makers and craftsmen, and we are always glad to see more. If
+              you make something by hand &mdash; textiles, woodwork, candles, jewellery &mdash; bring
+              it in or call to arrange a time to show us.
+            </p>
+            <a
+              href="/services#gift-ware"
+              class="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.88rem] font-semibold text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
+            >
+              How we stock gift-ware
+              <IconArrow class="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="overflow-hidden rounded-panel bg-white text-center shadow-[0_26px_55px_-50px_rgba(43,38,34,0.7)]"
+        >
+          <Image
+            src={receptionTable}
+            alt="A wedding reception table set with white and green flowers, glassware and candles"
+            widths={[420, 720, 1000]}
+            sizes="(min-width: 1024px) 560px, (min-width: 640px) 46vw, 92vw"
+            class="aspect-[16/10] w-full object-cover"
+            format="webp"
+            loading="lazy"
+          />
+          <div class="px-6 py-8 sm:px-8">
+            <Eyebrow label="Weddings" />
+            <h2 class="mt-4 font-serif text-[1.8rem] leading-[1.1] text-teal sm:text-[2.1rem]">
+              Planning a wedding?
+            </h2>
+            <p class="mx-auto mt-4 max-w-sm text-[0.98rem] leading-relaxed text-charcoal-soft">
+              Weddings start with a free consultation and a good conversation about your colours and
+              your day. Call the store to book a time, or read how it works first. There is no online
+              booking system and no deposit taken on this website.
+            </p>
+            <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+              <a
+                href="/services#wedding"
+                class="inline-flex min-h-11 items-center gap-2 text-[0.88rem] font-semibold text-teal underline decoration-teal/35 decoration-1 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
+              >
+                How wedding flowers work
+                <IconArrow class="h-4 w-4" />
+              </a>
+              <Button href={business.phone.href} variant="outline">
+                <IconPhone class="h-4 w-4" />
+                Book a consultation
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

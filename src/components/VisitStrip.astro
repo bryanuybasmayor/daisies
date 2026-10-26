@@ -1,0 +1,147 @@
+---
+import { business } from '../data/business';
+import Button from './Button.astro';
+import Eyebrow from './Eyebrow.astro';
+import IconArrow from './IconArrow.astro';
+import IconPhone from './IconPhone.astro';
+import Todo from './Todo.astro';
+
+// Three quiet lines instead of a seven-row table: the full week lives on the
+// contact page, so the visit panel only has to answer "are they open?".
+const hourGroups = [
+  { days: 'Monday – Friday', time: '9:00 a.m. – 5:30 p.m.' },
+  { days: 'Saturday', time: '9:00 a.m. – 5:00 p.m.' },
+  { days: 'Sunday', time: 'Closed', closed: true },
+];
+---
+
+<section aria-labelledby="visit-heading" class="bg-cream">
+  <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
+      <div>
+        <Eyebrow label="Visit us" align="start" />
+
+        <h2
+          id="visit-heading"
+          class="mt-5 max-w-md font-serif text-display leading-[1.03] text-teal"
+        >
+          Come in and see what is <em class="text-teal italic">new</em>.
+        </h2>
+
+        <p class="mt-5 max-w-md text-[1.02rem] leading-relaxed text-charcoal-soft">
+          We are on Main Street in Melfort, with flowers in the cooler, decor on the shelves, and a
+          chair by the window if you would like to stay a while.
+        </p>
+
+        <div class="mt-9 flex items-center gap-4">
+          <span
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-teal text-cream"
+            aria-hidden="true"
+          >
+            <IconPhone class="h-5 w-5" />
+          </span>
+          <p class="min-w-0">
+            <span class="block text-[0.7rem] font-semibold tracking-[0.24em] text-gold uppercase">
+              Call the store
+            </span>
+            <a
+              href={business.phone.href}
+              class="-ml-0.5 inline-flex min-h-9 items-center font-serif text-[clamp(1.55rem,3.4vw,1.95rem)] leading-none whitespace-nowrap text-teal underline decoration-teal/35 decoration-1 underline-offset-[6px] transition-colors hover:text-gold hover:decoration-teal"
+            >
+              {business.phone.display}
+            </a>
+          </p>
+        </div>
+
+        <p class="mt-4 max-w-xs text-[0.9rem] leading-relaxed text-charcoal-soft">
+          The quickest way to order flowers, ask about a piece, or book a wedding consultation.
+        </p>
+
+        <div class="mt-9 flex flex-wrap gap-3">
+          <Button href="/contact">
+            Contact us
+            <IconArrow />
+          </Button>
+          <Button href={business.mapUrl} variant="outline" external>Get directions</Button>
+        </div>
+
+        <div class="mt-7">
+          <Todo note="phone and address" />
+        </div>
+      </div>
+
+      <div
+        class="rounded-panel bg-white px-6 py-9 shadow-[0_34px_70px_-60px_rgba(43,38,34,0.75)] sm:px-9 sm:py-10"
+      >
+        <div class="flex items-start justify-between gap-6">
+          <div>
+            <h3 class="text-[0.7rem] font-semibold tracking-[0.24em] text-gold uppercase">
+              Find us
+            </h3>
+            <address class="mt-3 font-serif text-[1.5rem] leading-snug text-charcoal not-italic">
+              {business.address.street}<br />
+              {business.address.city}, {business.address.region} {business.address.postal}
+            </address>
+            <a
+              href={business.mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-1 inline-flex min-h-11 items-center gap-1.5 text-[0.85rem] font-semibold text-teal underline decoration-teal/35 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
+            >
+              Open in maps
+              <IconArrow class="h-3.5 w-3.5" />
+            </a>
+          </div>
+
+          <span
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-yellow text-teal-deep"
+            aria-hidden="true"
+          >
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 21s-6.5-5.6-6.5-10.4a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z" />
+              <circle cx="12" cy="10.4" r="2.2" />
+            </svg>
+          </span>
+        </div>
+
+        <div class="mt-8 border-t border-teal/15 pt-6">
+          <h3 class="text-[0.7rem] font-semibold tracking-[0.24em] text-gold uppercase">Hours</h3>
+          <dl class="mt-2">
+            {
+              hourGroups.map((group) => (
+                <div class="flex items-baseline justify-between gap-5 border-b border-teal/10 py-2.5 last:border-b-0">
+                  <dt class="text-[0.94rem] text-charcoal">{group.days}</dt>
+                  <dd
+                    class:list={[
+                      'text-right text-[0.94rem]',
+                      group.closed ? 'text-charcoal-soft' : 'font-medium text-charcoal',
+                    ]}
+                  >
+                    {group.time}
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="mt-4 text-[0.8rem] leading-relaxed text-charcoal-soft">
+            Public listings differ &mdash; please call before a special trip.
+            <a
+              href="/contact#hours"
+              class="font-semibold text-teal underline decoration-teal/35 underline-offset-4 transition-colors hover:text-gold hover:decoration-teal"
+            >
+              Full week
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

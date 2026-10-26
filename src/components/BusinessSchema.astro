@@ -1,0 +1,44 @@
+---
+import { business } from '../data/business';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Florist',
+  name: business.name,
+  description:
+    'A floral, home decor and gift shop on Main Street in Melfort, Saskatchewan. Fresh and permanent botanical arrangements, home decor, gift-ware, bereavement flowers and wedding flowers.',
+  telephone: business.phone.display,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    addressRegion: business.address.region,
+    postalCode: business.address.postal,
+    addressCountry: business.address.country,
+  },
+  areaServed: { '@type': 'City', name: 'Melfort' },
+  sameAs: business.socialLinks.map((link) => link.href),
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+      closes: '17:30',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Saturday',
+      opens: '09:00',
+      closes: '17:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Sunday',
+      opens: '00:00',
+      closes: '00:00',
+    },
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

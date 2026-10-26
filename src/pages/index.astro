@@ -1,0 +1,243 @@
+---
+import { Image } from 'astro:assets';
+import aboutStillLife from '../assets/images/about-still-life-tulips.jpg';
+import freshBouquet from '../assets/images/fresh-floral-mixed-bouquet.jpg';
+import heroTexture from '../assets/images/fresh-floral-red-bouquet.jpg';
+import heroShop from '../assets/images/hero-flower-shop.jpg';
+import homeDecorCandles from '../assets/images/home-decor-candles.jpg';
+import weddingBouquet from '../assets/images/wedding-bouquet.jpg';
+import Button from '../components/Button.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import GalleryPreview from '../components/GalleryPreview.astro';
+import IconArrow from '../components/IconArrow.astro';
+import IconPhone from '../components/IconPhone.astro';
+import SectionIntro from '../components/SectionIntro.astro';
+import VisitStrip from '../components/VisitStrip.astro';
+import { business, services } from '../data/business';
+import { serviceImages } from '../data/serviceImages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const heroPhotos = [
+  {
+    src: freshBouquet,
+    alt: 'A colourful mixed bouquet of roses, lilies and greenery in a pale pink vase',
+  },
+  {
+    src: homeDecorCandles,
+    alt: 'Candles glowing on a wooden table with dried grasses in a woven basket behind',
+  },
+  {
+    src: weddingBouquet,
+    alt: 'A blush and white bridal bouquet with trailing ribbon resting on a wooden table',
+  },
+];
+---
+
+<BaseLayout
+  title="Daisies Dreams and Decor — Florist in Melfort, SK"
+  description="A cozy floral, home decor and gift shop on Main Street in Melfort, Saskatchewan. Fresh arrangements, permanent botanicals, wedding and bereavement flowers."
+>
+  <section aria-labelledby="hero-heading" class="relative isolate overflow-hidden bg-teal-deep">
+    <Image
+      src={heroTexture}
+      alt=""
+      aria-hidden="true"
+      widths={[900, 1400, 1900]}
+      sizes="100vw"
+      class="absolute inset-0 -z-10 h-full w-full object-cover opacity-20"
+      format="webp"
+      loading="eager"
+    />
+    <div
+      class="absolute inset-0 -z-10 bg-gradient-to-b from-teal-deep/90 via-teal/84 to-teal-deep/97"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="relative mx-auto max-w-6xl px-5 pt-12 pb-0 text-center sm:px-8 sm:pt-16 lg:pt-20">
+      <Eyebrow label="Melfort, Saskatchewan" tone="cream" />
+
+      <h1
+        id="hero-heading"
+        class="mx-auto mt-6 max-w-3xl font-serif text-hero leading-[0.96] text-white sm:leading-[0.94]"
+      >
+        Fresh flowers, warm corners, and a little <em class="text-yellow italic">JOY</em>.
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-xl text-[1.02rem] leading-relaxed text-cream/80">
+        Daisies Dreams and Decor is a small floral, home decor and gift shop on Main Street. Flowers
+        for the people you love, one-of-a-kind pieces for the corners of your home, and a chair by
+        the window if you would like to sit down.
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href={business.phone.href} variant="light">
+          <IconPhone class="h-4 w-4" />
+          Call {business.phone.display}
+        </Button>
+        <Button href="/services" variant="accent">
+          Our Services
+          <IconArrow class="h-4 w-4" />
+        </Button>
+      </div>
+
+      <p
+        class="mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[0.8rem] text-cream/65"
+      >
+        {business.hoursSummary}
+        <span aria-hidden="true">·</span>
+        <a
+          href="/contact#hours"
+          class="underline decoration-cream/30 underline-offset-4 transition-colors hover:text-cream hover:decoration-yellow"
+        >
+          Hours and directions
+        </a>
+      </p>
+    </div>
+
+    <div class="relative mx-auto mt-10 max-w-6xl px-5 sm:mt-12 sm:px-8">
+      <div class="grid grid-cols-3 gap-1.5 overflow-hidden rounded-t-panel sm:gap-3">
+        {
+          heroPhotos.map((photo, index) => (
+            <div class="overflow-hidden bg-teal-mid">
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                widths={[420, 700, 1000]}
+                sizes="(min-width: 1152px) 368px, 33vw"
+                class="h-[clamp(8.5rem,22vw,18rem)] w-full object-cover"
+                format="webp"
+                loading="eager"
+                fetchpriority={index === 0 ? 'high' : undefined}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="welcome-heading" class="bg-cream">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+      <SectionIntro
+        eyebrow="Welcome in"
+        title="A shop built around adding JOY to people's lives."
+        intro="Kyla opened Daisies with a simple idea: a shop where people feel welcome the moment they walk in."
+        id="welcome-heading"
+      />
+
+      <div class="mt-12 grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-16">
+        <div class="relative">
+          <span
+            class="absolute inset-0 translate-x-3 translate-y-3 rounded-panel bg-yellow-tint"
+            aria-hidden="true"></span>
+          <Image
+            src={heroShop}
+            alt="Wooden shelves inside a florist shop, filled with vases, dried flowers and small gifts"
+            widths={[420, 640, 900]}
+            sizes="(min-width: 1024px) 44vw, 90vw"
+            class="relative aspect-[5/4] w-full rounded-panel object-cover lg:aspect-[4/5]"
+            format="webp"
+            loading="lazy"
+          />
+          <div
+            class="absolute -bottom-8 left-4 hidden w-32 overflow-hidden rounded-full border-4 border-cream sm:block lg:-bottom-10 lg:w-36"
+          >
+            <Image
+              src={aboutStillLife}
+              alt="Tulips in a glass vase beside an open book in warm afternoon light"
+              widths={[240, 360]}
+              sizes="144px"
+              class="aspect-square w-full object-cover"
+              format="webp"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="max-w-xl lg:pt-4">
+          <p class="text-[1.02rem] leading-relaxed text-charcoal-soft">
+            It is still that — a small floral, home decor and gift store in Melfort, built on
+            customer service that actually means something. We will help you choose, we will not
+            rush you, and we will remember you next time.
+          </p>
+          <p class="mt-4 text-[1.02rem] leading-relaxed text-charcoal-soft">
+            Fresh arrangements are made with care, decor is chosen one piece at a time, and there is
+            always somewhere to sit. Help yourself to a complimentary coffee or tea while you look
+            around.
+          </p>
+
+          <p class="mt-7 border-l-2 border-yellow pl-5 font-serif text-[1.45rem] leading-snug text-teal italic">
+            &ldquo;Adding a little JOY to people&rsquo;s lives&rdquo; is the whole idea.
+          </p>
+
+          <div class="mt-8">
+            <Button href="/about" variant="outline">
+              Read our story
+              <IconArrow class="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="services-preview-heading" class="bg-teal-tint">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+      <SectionIntro
+        eyebrow="Our services"
+        title="Flowers and finds for the whole of a life."
+        intro="Six things we do, all of them from the store on Main Street."
+        id="services-preview-heading"
+      />
+
+      <ul class="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:gap-x-8 lg:grid-cols-3 lg:gap-y-12">
+        {
+          services.map((service) => {
+            const image = service.image ? serviceImages[service.image] : undefined;
+            return (
+              <li class="h-full text-center">
+                <a href={`/services#${service.slug}`} class="group flex h-full flex-col items-center">
+                  {image && (
+                    <div class="relative mx-auto h-28 w-28 overflow-hidden rounded-full bg-cream-deep sm:h-36 sm:w-36">
+                      <Image
+                        src={image}
+                        alt={service.imageAlt ?? ''}
+                        widths={[200, 300]}
+                        sizes="(min-width: 640px) 144px, 112px"
+                        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        format="webp"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <h3 class="mx-auto mt-5 max-w-[16rem] font-serif text-[1.35rem] leading-tight text-teal transition-colors group-hover:text-teal-deep sm:text-[1.5rem]">
+                    {service.name}
+                  </h3>
+                  <p class="mx-auto mt-2 max-w-[19rem] text-[0.9rem] leading-relaxed text-charcoal-soft">
+                    {service.short}
+                  </p>
+                  <span class="mt-auto inline-flex items-center gap-1.5 pt-3 text-[0.7rem] font-semibold tracking-[0.16em] text-teal uppercase">
+                    Explore
+                    <IconArrow class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+
+      <div class="mt-14 flex justify-center">
+        <Button href="/services" variant="outline">
+          All services
+          <IconArrow class="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <GalleryPreview />
+
+  <VisitStrip />
+</BaseLayout>

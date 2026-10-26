@@ -1,0 +1,48 @@
+---
+import { business } from '../data/business';
+import IconFacebook from './IconFacebook.astro';
+import IconInstagram from './IconInstagram.astro';
+
+interface Props {
+  /** Footer: bordered circles on deep teal. Header: quiet icons in the top bar. */
+  variant?: 'footer' | 'header';
+  class?: string;
+}
+
+const { variant = 'footer', class: className = '' } = Astro.props;
+
+const icons: Record<string, typeof IconFacebook> = {
+  Facebook: IconFacebook,
+  Instagram: IconInstagram,
+};
+
+const linkClass =
+  variant === 'header'
+    ? 'flex h-11 w-11 items-center justify-center rounded-full text-cream/80 transition-colors hover:text-yellow focus-visible:outline-cream'
+    : 'flex h-11 w-11 items-center justify-center rounded-full border border-cream/30 text-cream transition-colors hover:border-yellow hover:bg-yellow hover:text-teal-deep';
+
+const iconClass = variant === 'header' ? 'h-[1.05rem] w-[1.05rem]' : 'h-[1.15rem] w-[1.15rem]';
+---
+
+{
+  business.socialLinks.length > 0 && (
+    <ul class:list={['flex flex-wrap items-center justify-center gap-1', className]}>
+      {business.socialLinks.map((link) => {
+        const Icon = icons[link.label];
+        return (
+          <li>
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${business.name} on ${link.label}`}
+              class={linkClass}
+            >
+              {Icon && <Icon class={iconClass} />}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  )
+}

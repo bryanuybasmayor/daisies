@@ -1,0 +1,17 @@
+---
+interface Props {
+  note: string;
+  class?: string;
+}
+
+const { note, class: className = '' } = Astro.props;
+---
+
+<span
+  class:list={[
+    'inline-flex max-w-full items-baseline gap-1 rounded-full border border-dashed border-teal/50 bg-yellow-tint/70 px-2.5 py-1 align-baseline text-left font-sans text-[0.7rem] font-semibold tracking-[0.08em] text-gold-deep uppercase',
+    className,
+  ]}
+>
+  TODO: confirm with owner — {note}
+</span>

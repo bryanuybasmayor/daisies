@@ -1,0 +1,23 @@
+---
+interface Props {
+  label: string;
+  align?: 'start' | 'center';
+  tone?: 'gold' | 'cream';
+  class?: string;
+}
+
+const { label, align = 'center', tone = 'gold', class: className = '' } = Astro.props;
+---
+
+<p
+  class:list={[
+    'flex items-center gap-3 text-[0.7rem] font-semibold tracking-[0.24em] uppercase',
+    align === 'center' ? 'justify-center' : 'justify-start',
+    tone === 'cream' ? 'text-cream/85' : 'text-gold',
+    className,
+  ]}
+>
+  <span class="h-px w-7 bg-current opacity-45" aria-hidden="true"></span>
+  {label}
+  <span class="h-px w-7 bg-current opacity-45" aria-hidden="true"></span>
+</p>

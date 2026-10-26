@@ -1,0 +1,30 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'accent' | 'outline' | 'light' | 'lightOutline';
+  class?: string;
+  external?: boolean;
+}
+
+const { href, variant = 'primary', class: className = '', external = false } = Astro.props;
+
+const base =
+  'inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.92rem] font-semibold tracking-[0.02em] transition-colors';
+
+const variants: Record<string, string> = {
+  primary: 'bg-teal text-cream hover:bg-teal-mid',
+  accent: 'bg-yellow text-teal-deep hover:bg-cream',
+  outline: 'border border-charcoal/25 text-charcoal hover:border-teal hover:text-teal',
+  light: 'bg-cream text-teal hover:bg-white focus-visible:outline-cream',
+  lightOutline:
+    'border border-cream/45 text-cream hover:border-cream hover:bg-cream hover:text-teal focus-visible:outline-cream',
+};
+---
+
+<a
+  href={href}
+  class:list={[base, variants[variant], className]}
+  {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+>
+  <slot />
+</a>
